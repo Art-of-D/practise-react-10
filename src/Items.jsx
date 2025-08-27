@@ -1,23 +1,26 @@
-import { use } from "react";
 import SingleItem from "./SingleItem";
 import { useQuery } from "@tanstack/react-query";
 import api from "./utils";
 
 const Items = ({ items }) => {
-  const response = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["tasks"],
     queryFn: async () => {
-      const res = await api.get("/tasks");
-      return res.data;
+      const { data } = await api.get("/tasks");
+      return data;
     },
   });
 
-  console.log(response);
+  if (isLoading) return <p style={{ marginTop: "2rem" }}>Loading...</p>;
+
+  if (isError) return <p style={{ marginTop: "2rem" }}>{error.message}</p>;
+
   return (
     <div className="items">
-      {items.map((item) => {
-        return <SingleItem key={item.id} item={item} />;
-      })}
+      {!isLoading &&
+        data.taskList.map((item) => {
+          return <SingleItem key={item.id} item={item} />;
+        })}
     </div>
   );
 };
