@@ -17,7 +17,6 @@ const App = () => {
   } = useFetchPhotos({
     searchValue: query,
   });
-
   return (
     <main>
       <ThemeToggle></ThemeToggle>

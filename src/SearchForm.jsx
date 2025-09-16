@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 const PLACEHOLDER_TEXT = "dog";
 
 const SearchForm = ({ onSearch, initialValue = PLACEHOLDER_TEXT }) => {
-  const { searchValue, setSearchValue } = useState(initialValue);
-
+  const [searchValue, setSearchValue] = useState(initialValue);
   const handleSubmit = (e) => {
     e.preventDefault();
     const q = searchValue.trim();
